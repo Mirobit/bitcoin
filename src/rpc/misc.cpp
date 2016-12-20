@@ -13,6 +13,7 @@
 #include "timedata.h"
 #include "util.h"
 #include "utilstrencodings.h"
+#include "txmempool.h"
 #ifdef ENABLE_WALLET
 #include "wallet/wallet.h"
 #include "wallet/walletdb.h"
@@ -147,6 +148,21 @@ public:
     }
 };
 #endif
+
+UniValue clearmempool(const JSONRPCRequest& request)
+{
+    if (request.fHelp || request.params.size() != 0)
+        throw runtime_error(
+                            "clearmempool\n"
+                            "\nClear all transactions from the memory pool.\n"
+                            "\nExamples:\n"
+                            + HelpExampleCli("clearmempool", "")
+                            + HelpExampleRpc("clearmempool", "")
+                            );
+    mempool.clear();
+
+    return NullUniValue;
+}
 
 UniValue validateaddress(const JSONRPCRequest& request)
 {
@@ -510,6 +526,7 @@ static const CRPCCommand commands[] =
   //  --------------------- ------------------------  -----------------------  ----------
     { "control",            "getinfo",                &getinfo,                true,  {} }, /* uses wallet if enabled */
     { "control",            "getmemoryinfo",          &getmemoryinfo,          true,  {} },
+    { "util",               "clearmempool",           &clearmempool,           true,  {} },
     { "util",               "validateaddress",        &validateaddress,        true,  {"address"} }, /* uses wallet if enabled */
     { "util",               "createmultisig",         &createmultisig,         true,  {"nrequired","keys"} },
     { "util",               "verifymessage",          &verifymessage,          true,  {"address","signature","message"} },
