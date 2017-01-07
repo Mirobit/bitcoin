@@ -40,11 +40,13 @@ Only supports JSON as output format.
 * headers : (numeric) the current number of headers we have validated
 * bestblockhash : (string) the hash of the currently best block
 * difficulty : (numeric) the current difficulty
+* mediantime : (numeric) median time for the current best block
 * verificationprogress : (numeric) estimate of verification progress [0..1]
 * chainwork : (string) total amount of work in active chain, in hexadecimal
 * pruned : (boolean) if the blocks are subject to pruning
 * pruneheight : (numeric) heighest block available
 * softforks : (array) status of softforks in progress
+* bip9_softforks : (object) status of BIP9 softforks in progress
 
 ####Query UTXO set
 `GET /rest/getutxos/<checkmempool>/<txid>-<n>/<txid>-<n>/.../<txid>-<n>.<bin|hex|json>`
@@ -59,6 +61,7 @@ $ curl localhost:18332/rest/getutxos/checkmempool/b2cdfd7b89def827ff8af7cd9bff76
 {
    "chaintipHash" : "00000000fb01a7f3745a717f8caebee056c484e6e0bfe4a9591c235bb70506fb",
    "chainHeight" : 325347,
+   "bitmap" : "1",
    "utxos" : [
       {
          "scriptPubKey" : {
@@ -74,8 +77,7 @@ $ curl localhost:18332/rest/getutxos/checkmempool/b2cdfd7b89def827ff8af7cd9bff76
          "height" : 2147483647,
          "txvers" : 1
       }
-   ],
-   "bitmap" : "1"
+   ]
 }
 ```
 
@@ -87,6 +89,8 @@ Only supports JSON as output format.
 * size : (numeric) the number of transactions in the TX mempool
 * bytes : (numeric) size of the TX mempool in bytes
 * usage : (numeric) total TX mempool memory usage
+* maxmempool : (numeric) maximum memory usage for the mempool
+* mempoolminfee : (numeric) minimum fee for tx to be accepted
 
 `GET /rest/mempool/contents.json`
 
