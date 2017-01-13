@@ -617,6 +617,7 @@ void CNode::copyStats(CNodeStats &stats)
     X(cleanSubVer);
     X(fInbound);
     X(fAddnode);
+    X(minFeeFilter);
     X(nStartingHeight);
     X(nSendBytes);
     X(mapSendBytesPerMsgCmd);

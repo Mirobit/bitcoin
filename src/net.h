@@ -540,6 +540,7 @@ public:
     bool fInbound;
     bool fAddnode;
     int nStartingHeight;
+    CAmount minFeeFilter;
     uint64_t nSendBytes;
     mapMsgCmdSize mapSendBytesPerMsgCmd;
     uint64_t nRecvBytes;

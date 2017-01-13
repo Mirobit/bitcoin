@@ -77,7 +77,7 @@ UniValue getpeerinfo(const JSONRPCRequest& request)
             "  {\n"
             "    \"id\": n,                   (numeric) Peer index\n"
             "    \"addr\":\"host:port\",      (string) The ip address and port of the peer\n"
-            "    \"addrlocal\":\"ip:port\",   (string) local address\n"
+            "    \"addrlocal\":\"ip:port\",   (string) Local address\n"
             "    \"services\":\"xxxxxxxxxxxxxxxx\",   (string) The services offered\n"
             "    \"relaytxes\":true|false,    (boolean) Whether peer has asked us to relay transactions to it\n"
             "    \"lastsend\": ttt,           (numeric) The time in seconds since epoch (Jan 1 1970 GMT) of the last send\n"
@@ -87,12 +87,13 @@ UniValue getpeerinfo(const JSONRPCRequest& request)
             "    \"conntime\": ttt,           (numeric) The connection time in seconds since epoch (Jan 1 1970 GMT)\n"
             "    \"timeoffset\": ttt,         (numeric) The time offset in seconds\n"
             "    \"pingtime\": n,             (numeric) ping time (if available)\n"
-            "    \"minping\": n,              (numeric) minimum observed ping time (if any at all)\n"
-            "    \"pingwait\": n,             (numeric) ping wait (if non-zero)\n"
+            "    \"minping\": n,              (numeric) Minimum observed ping time (if any at all)\n"
+            "    \"pingwait\": n,             (numeric) Ping wait (if non-zero)\n"
             "    \"version\": v,              (numeric) The peer version, such as 7001\n"
             "    \"subver\": \"/Satoshi:0.8.5/\",  (string) The string version\n"
             "    \"inbound\": true|false,     (boolean) Inbound (true) or Outbound (false)\n"
             "    \"addnode\": true|false,     (boolean) Whether connection was due to addnode and is using an addnode slot\n"
+            "    \"feefilter\": n,            (numeric) The feefilter the peer sent. Zero if no feefilter has been sent\n"
             "    \"startingheight\": n,       (numeric) The starting height (block) of the peer\n"
             "    \"banscore\": n,             (numeric) The ban score\n"
             "    \"synced_headers\": n,       (numeric) The last header we have in common with this peer\n"
@@ -155,6 +156,7 @@ UniValue getpeerinfo(const JSONRPCRequest& request)
         obj.push_back(Pair("subver", stats.cleanSubVer));
         obj.push_back(Pair("inbound", stats.fInbound));
         obj.push_back(Pair("addnode", stats.fAddnode));
+        obj.push_back(Pair("feefilter", ValueFromAmount(stats.minFeeFilter)));
         obj.push_back(Pair("startingheight", stats.nStartingHeight));
         if (fStateStats) {
             obj.push_back(Pair("banscore", statestats.nMisbehavior));
