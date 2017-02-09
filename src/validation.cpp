@@ -4173,6 +4173,7 @@ static const uint64_t MEMPOOL_DUMP_VERSION = 1;
 
 bool LoadMempool(void)
 {
+    LogPrintf("Start importing mempool transactions from disk\n");
     int64_t nExpiryTimeout = GetArg("-mempoolexpiry", DEFAULT_MEMPOOL_EXPIRY) * 60 * 60;
     FILE* filestr = fopen((GetDataDir() / "mempool.dat").string().c_str(), "r");
     CAutoFile file(filestr, SER_DISK, CLIENT_VERSION);
