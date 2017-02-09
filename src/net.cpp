@@ -1273,7 +1273,7 @@ void CConnman::ThreadSocketHandler()
                             if (nErr != WSAEWOULDBLOCK && nErr != WSAEMSGSIZE && nErr != WSAEINTR && nErr != WSAEINPROGRESS)
                             {
                                 if (!pnode->fDisconnect)
-                                    LogPrintf("socket recv error %s\n", NetworkErrorString(nErr));
+                                    LogPrintf("%d socket recv error %s\n",  pnode->id, NetworkErrorString(nErr));
                                 pnode->CloseSocketDisconnect();
                             }
                         }
