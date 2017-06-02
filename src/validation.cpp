@@ -3997,6 +3997,8 @@ static const uint64_t MEMPOOL_DUMP_VERSION = 1;
 
 bool LoadMempool(void)
 {
+	uiInterface.InitMessage(_("Loading mempool transactions..."));
+	int64_t nStart = GetTimeMillis();
     int64_t nExpiryTimeout = GetArg("-mempoolexpiry", DEFAULT_MEMPOOL_EXPIRY) * 60 * 60;
     FILE* filestr = fsbridge::fopen(GetDataDir() / "mempool.dat", "rb");
     CAutoFile file(filestr, SER_DISK, CLIENT_VERSION);
@@ -4056,7 +4058,7 @@ bool LoadMempool(void)
         return false;
     }
 
-    LogPrintf("Imported mempool transactions from disk: %i successes, %i failed, %i expired\n", count, failed, skipped);
+    LogPrintf("Imported mempool transactions from disk: %i successes, %i failed, %i expired, %dms\n", count, failed, skipped, GetTimeMillis() - nStart);
     return true;
 }
 
